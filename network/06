@@ -1,0 +1,2 @@
+cat /etc/resolv.conf
+#found the info there : https://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/etc.html and there : https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard

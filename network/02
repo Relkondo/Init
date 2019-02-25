@@ -1,0 +1,2 @@
+ifconfig -L en0 | grep -o 'broadcast.*' | cut -d ' ' -f2
+arp -a | grep -o "(.*.)" | tr -d '(' | tr -d ')'

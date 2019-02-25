@@ -1,0 +1,1 @@
+netstat -arn | awk '/default/{print $2}' | sed q
