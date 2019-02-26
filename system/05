@@ -1,0 +1,2 @@
+sudo service ssh status
+# or sudo /usr/sbin/service ssh status, sudo /etc/init.d/ssh status

@@ -1,0 +1,3 @@
+pkill tail
+#pkill nameofcommand
+#about the -KILL signal, an interesting point : https://unix.stackexchange.com/questions/421003/what-is-the-kill-option-in-pkill-command

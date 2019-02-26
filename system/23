@@ -1,0 +1,2 @@
+Graphique => si user inexistant, adduser username, puis se connecter normalement via GUI
+SSH =>  ssh username@ipserver -p port

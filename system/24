@@ -1,0 +1,4 @@
+dpkg-query -l
+
+# using command "apt-cache policy" allow you to see if packages are updated 
+# query desactivate potential default options, but dpkg should do the job alone usually
