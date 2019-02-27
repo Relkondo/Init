@@ -8,5 +8,3 @@ if [ "$?" == "0" ]; then
 else
 	echo "$usr does not exist"
 fi
-
-#http://lanterne-rouge.over-blog.org/article-que-signifie-dev-null-2-1-70233357.html
