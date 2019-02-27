@@ -23,7 +23,7 @@ done
 
 lines=$(cat $1/*.c | grep '^\w.*$' | grep -v '^static' | sed "s/	\{1,\}/$tabs/g"| sed 's/$/;/')
 let "nbl=$(echo "$lines" | wc -l)"
-if [ -e $2 ]
+if [ -e $1/$2 ]
 	then
 	echo "$(cat $1/$2 | egrep '^\w.*$|^			' | grep -v '^typedef')" >> toremvsecurite.txt
 	tokeep=$(cat $1/$2 | grep -v "$END" | grep -Fvxf toremvsecurite.txt) 
@@ -33,7 +33,7 @@ else
 	name=$(echo "$2" | tr '[:lower:]' '[:upper:]' | tr '.' '_')
 	list="\n$BEG$name\n$BEG2$name\n\n$lines\n\n$END"
 fi
-rm -f $2
+rm -f $1/$2
 rm -f toremvsecurite.txt
-echo "$list" >> $2
+echo "$list" >> $1/$2
 echo "${GRE}✓ ${RED}$nbl ${NC}prototypes were copied to your ${LCY}$2${NC}."
