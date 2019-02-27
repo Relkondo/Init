@@ -1,11 +1,11 @@
 #!/bin/bash
-echo -n "Voulez-vous afficher uniquement le login, l'UID et le Path de chaque entree du fichier /etc/psswd Y/N ? "
-read ouinon
-if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]; then
+echo -n "Afficher uniquement le login, l'UID et le Path de chaque entree du fichier /etc/psswd Y/N ? "
+read answr
+if [ "$answr" = "y" ] || [ "$answr" = "Y" ]; then
 	echo "login		  UID	  Path :"
 	cat /etc/passwd | awk -F  ":" '{print $1 "   " $3 "   " $6}' | column -t
-elif [ "$ouinon" = "n" ] || [ "$ouinon" = "N" ]; then
-	echo "Ok, bye !"
+elif [ "$answr" = "n" ] || [ "$answr" = "N" ]; then
+	echo "Soit"
 else
-	echo "omae ma wou shindeiru. nani $ouinon"
+	echo "Apprends a lire"
 fi
