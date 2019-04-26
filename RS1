@@ -1,0 +1,741 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 HelveticaNeue;
+}
+{\colortbl;\red255\green255\blue255;\red27\green31\blue34;\red244\green246\blue249;\red255\green255\blue255;
+\red44\green44\blue44;\red0\green0\blue0;\red225\green48\blue57;\red0\green0\blue0;\red203\green35\blue57;
+\red21\green23\blue26;\red10\green77\blue204;\red87\green96\blue106;\red255\green255\blue255;\red7\green68\blue184;
+\red27\green29\blue31;\red235\green236\blue237;\red6\green33\blue79;}
+{\*\expandedcolortbl;;\cssrgb\c14118\c16078\c18039;\cssrgb\c96471\c97255\c98039;\cssrgb\c100000\c100000\c100000;
+\cssrgb\c22745\c22745\c22745;\cssrgb\c0\c0\c0\c4706;\cssrgb\c91373\c28235\c28627;\csgenericrgb\c0\c0\c0;\cssrgb\c84314\c22745\c28627;
+\cssrgb\c10588\c12157\c13725\c4706;\cssrgb\c1176\c40000\c83922;\cssrgb\c41569\c45098\c49020;\csgenericrgb\c100000\c100000\c100000;\cssrgb\c0\c36078\c77255;
+\cssrgb\c14118\c15294\c16078;\cssrgb\c93725\c94118\c94510;\cssrgb\c1176\c18431\c38431;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid101\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat2\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid201\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid3}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
+\margl1440\margr1440\vieww29300\viewh22260\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+Commandes pour la correct :\
+lsblk\
+apt update\cb4 \
+apt list --installed\
+ls /root\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb6 \outl0\strokewidth0 \strokec5 usermod -aG sudo \cf7 \strokec7 username
+\i \cf8  (puis reboot)\
+
+\i0 Iptables -S\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 \outl0\strokewidth0 perl slowloris.pl -dns [STATIC IP VM] -port [SSH PORT VM]\
+sudo systemctl list-unit-files\
+sudo systemctl status apache2\
+sudo apache2ctl -S\
+SSL : montrer en se connectant\
+
+\f2\b\fs48 \cb4 \
+\
+\pard\pardeftab720\sl600\sa320\partightenfactor0
+\cf2 Roger-Skyline\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 Tutoriel pour le projet Roger-Skyline.\
+\pard\pardeftab720\sl600\sa320\partightenfactor0
+
+\b\fs48 \cf2 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+
+\fs36 \cf2 PARTIE 1 : Creation de la VM
+\fs48 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 J\'92ai t\'e9l\'e9charg\'e9 l'image Debian officielle :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-netinst.iso\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+J\'92ai cr\'e9\'e9 une machine debian de taille fixe de 8gb avec VirtualBox.\
+ https://pubs.vmware.com/workstation-9/index.jsp?topic=%2Fcom.vmware.ws.using.doc%2FGUID-D9B0A52D-38A2-45D7-A9EB-987ACE77F93C.html\
+Avant de lancer la machine virtuelle, dans VirtualBox, settings : J\'92ai laiss\'e9 adapter 1 en NAT, mis l\'92adaptateur 2 en host-only adapter avec le r\'e9seau vboxnet0 et l'ip 192.168.56.1/24. (Ce r\'e9seau n\'92est accessible qu\'92en local). Un autre choix \'e9tait Bridged Adapter, avec le r\'e9seau en0. Notez que conserver un r\'e9seau NAT en plus \'e9tait n\'e9cessaire pour certaines updates, installations et pour la partie web. Plus d\'92explications plus bas.\
+A l'installation, j\'92ai opt\'e9 pour une partition primaire mont\'e9e sur / avec > 4.2GB et une autre logique mont\'e9e sur home. Ne pas installer,  installer GRUB en revanche.\
+Check si la partition est bonne :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 lsblk\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Une fois dans la VM, j\'92ai install\'e9 les packages n\'e9cessaires \'e0 Roger-Skyline :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 apt-get update -y \cf9 &&\cf2  apt-get upgrade -y\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 apt install -y vim sudo net-tools \cb3 portsentry\cb10  iptables-persistent fail2ban \cb3 mailutils\cb10  apache2
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 \cb4 PARTIE 2 : Connection SSH
+\b0\fs32 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Pour configurer la connection en ssh, il faut d\'e9terminer par quel r\'e9seau la connection va transiter, par quel port elle va arriver, et \'e0 l\'92aide de quelle carte r\'e9seau la machine va la recevoir.\
+Il va falloir aussi autoriser l\'92identification ssh par mot de passe dans un premier temps, afin de pouvoir mettre en place l\'92identification par public_key, puis la bloquer ensuite.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl360\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 Dans :\cb1 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 sudo vim /etc/ssh/sshd_config\
+\pard\tx720\pardeftab720\sl360\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \kerning1\expnd0\expndtw0 Il faut \'e9diter la ligne 13, en changeant port 22 dans un port de ton choix, en prenant en compte la note ci-dessous. Par exemple, 50787.\cb1 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 Port 50787\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f2\b\fs32 \cf12 \cb4 Note
+\b0 : The Internet Assigned Numbers Authority (IANA) is responsible for the global coordination of the DNS Root, IP addressing, and other Internet protocol resources. It is good practice to follow their port assignment guidelines. Having said that, port numbers are divided into three ranges: Well Known Ports, Registered Ports, and Dynamic and/or Private Ports. The Well Known Ports are those from 0 through 1023 and SHOULD NOT be used. Registered Ports are those from 1024 through 49151 should also be avoided too. Dynamic and/or Private Ports are those from 49152 through 65535 and can be used. Though nothing is stopping you from using reserved port numbers, our suggestion may help avoid technical issues with port allocation in the future.\cb1 \
+\pard\tx720\pardeftab720\sl360\partightenfactor0
+\cf2 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Ensuite, on va faire en sorte d pouvoir se connecter par mot de passe dans un premier temps.\
+ On d\'e9commente la ligne PasswordAuthentification yes. On d\'e9commente #PermitRootLogin prohibit-password et on remplace par No. D\'e9commentez #PubkeyAuthentication yes\
+On cr\'e9\'e9 maintenant une nouvelle interface r\'e9seau qui fera le lien entre la machine et l\'92host.\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 vim /etc/network/interfaces
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Et on ajoute le contenu suivant, en modifiant la carte r\'e9seau enp0s8 (verifier au pr\'e9alable qu\'92elle existe avec ifconfig sur la VM. Puis faire ifconfig sur le terminal, checker l\'92adresse de en0, et reprendre le meme debut d\'92adresse IP jusqu\'92a la fin du net mask) :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 # This file describes the network interfaces available on your system\
+# and how to activate them. For more information, see interfaces(5).\
+\
+source /etc/network/interfaces.d/*\
+\
+# The loopback network interface\
+auto lo\
+iface lo inet loopback\
+\
+# The primary network interface\
+allow-hotplug enp0s3\
+iface enp0s3 inet dhcp\
+\
+allow-hotplug enp0s8\
+iface enp0s8 inet static\
+address 192.168.56.2\
+netmask 255.255.255.252\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+Ca c\'92est dans le cas o\'f9 on s\'92est mis en Host Only Adapter au d\'e9part. Le d\'e9savantage de celui-ci est que le r\'e9seau vboxnet n\'92offre que\'85 deux addresses (quatre avec l\'92adresse de l\'92h\'f4te et l\'92adresse de broadcast). On est donc limit\'e9 sur le choix de l\'92IP, et quand on cr\'e9\'e9 plusieurs VM, ca peut \'eatre probl\'e9matique. En Bridge Adapter, la plage libre du r\'e9seau en0 est de 256*256 adresses, mais le r\'e9seau s\'92\'e9tendait sur tout l\'92\'e9tage de 42, il fallait donc faire attention \'e0 ne pas choisir une adresse d\'e9j\'e0 prise.\
+En bridge adapter, la modification de network/interfaces ressemblerait plut\'f4t \'e0 (d\'e9but d\'92IP sur la longueur du net mask identique \'e0 l\'92adresse de broadcast du r\'e9seau) :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf8 \cb3 iface enp0s8 inet static\
+      address 10.12.9.159 (if second floor, start with 10.12, if third 10.13)\
+      netmask 255.255.255.0\
+      gateway 10.12.254.254\cf2 \
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 (Gateway facultatif).\
+ Ensuite :\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 On ajoute l\'92utilisateur non-root au groupe sudo :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 adduser [username] sudo
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Puis : \'a0
+\f1\fs27\fsmilli13600 \cb10 reboot
+\f2\fs32 \cb4 \
+Dans un terminal de l\'92host, on g\'e9n\'e8 une cl\'e9 ssh publique :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 ssh-keygen
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Puis\'a0
+\f1\fs27\fsmilli13600 \cb10 cat ~/.ssh/id_rsa.pub
+\f2\fs32 \cb4 \'a0et on copie le contenu en entier.\
+On peut se connecter en ssh :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 ssh user@IPMACHINE -p 50787
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 On entre le mot de passe (obligatoire la premi\'e8re fois) et et on cr\'e9\'e9 le dossier .ssh et le fichier authorized_keys dans le home de votre utilisateur.\
+On colle ensuite la cl\'e9 dans le nouvellement cr\'e9\'e9\'a0
+\f1\fs27\fsmilli13600 \cb10 .ssh/authorized_keys
+\f2\fs32 \cb4 \
+On utilise chmod 755 sur authorized_keys et .ssh\
+Puis on modifie \'e0 nouveau le fichier de configuration ssh :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo vim /etc/ssh/sshd_config
+\f2\fs32 \cb4 \'a0et passez "PasswordAuthentification yes" \'e0 no.\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 On relance le service ssh :\'a0
+\f1\fs27\fsmilli13600 \cb10 sudo service ssh restart
+\f2\fs32 \cb4 \
+On sort du ssh avec\'a0
+\f1\fs27\fsmilli13600 \cb10 exit
+\f2\fs32 \cb4 \'a0et on retente une connexion avec la commande pr\'e9d\'e9dente. La connexion se fait d\'e9sormais sans mot de passe avec les PublicKeys. La VM est mentonnn\'e9e dans le fichier .ssh/known_hosts.\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 \cb4 PARTIE 3 : Firewall\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 La partie Firewall se fait via des r\'e8gles iptables. Vous pouvez lister les r\'e8gles existantes avec :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo iptables -S\
+Reinitialisez les regles :\
+\pard\pardeftab720\sl380\partightenfactor0
+\cf2 \cb3 sudo iptables -F\
+sudo iptables -X\
+sudo iptables -t nat -F\
+sudo iptables -t nat -X\
+sudo iptables -t mangle -F\
+sudo iptables -t mangle -X\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2  J\'92ai ajout\'e9 les r\'e8gles suivantes en les lan\'e7ant en commandes : \
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 #!/bin/bash\
+\
+iptables-restore < /etc/iptables.test.rules\
+\
+sudo iptables -A INPUT -i lo -j ACCEPT \
+sudo iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT\
+sudo iptables -A INPUT -i enp0s8 -p tcp -m tcp --dport 80 --tcp-flags FIN,SYN,RST,ACK SYN -m connlimit --connlimit-upto 30 --connlimit-mask 32 --connlimit-saddr -j ACCEPT \
+sudo iptables -A INPUT -i enp0s8 -p tcp -m tcp --dport 443 --tcp-flags FIN,SYN,RST,ACK SYN -m connlimit --connlimit-upto 30 --connlimit-mask 32 --connlimit-saddr -j ACCEPT\
+sudo iptables -A INPUT -i enp0s8 -p tcp -m tcp --dport 50787 --tcp-flags FIN,SYN,RST,ACK SYN -m connlimit --connlimit-upto 10 --connlimit-mask 24 --connlimit-saddr -j ACCEPT\
+sudo iptables -A INPUT -j LOG\
+sudo iptables -A FORWARD -j LOG\
+sudo iptables -A OUTPUT -m conntrack ! --ctstate INVALID -j ACCEPT\
+sudo iptables -P INPUT DROP\
+sudo iptables -P OUTPUT DROP\
+sudo iptables -P FORWARD DROP\
+\
+\
+\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+Puis j\'92ai sauvegard\'e9 les r\'e8gles sur la VM (il faut \'eatre super admin) dans le fichier suivant :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 iptables-save > /etc/iptables/rules.v4 ;
+\f2\fs32 \cb4 \
+Il y a plein de tutos en ligne qui d\'e9taillent le fonctionnement des commandes ci-dessus. Ex:\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 https://help.ubuntu.com/community/IptablesHowTo\
+https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 \cb4 PARTIE 4 : DOS\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 On cr\'e9\'e9 un fichier de log pour votre serveur Apache.\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo touch /var/log/apache2/server.log
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Le packet fail2ban int\'e8gre des protections contre les attaques courantes. Il suffit de les activer en cr\'e9ant un fichier de configuration local. Cela permet de ne pas modifier directement les jails par d\'e9faut de jail.conf.\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo vim /etc/fail2ban/jail.local
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 J\'92ai ajout\'e9 les jails suivantes :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 [DEFAULT]\
+destemail = scoron@student.42.fr\
+sender = root@roger-skyline.fr\
+\
+[sshd]\
+port = 50787\
+enabled = true\
+maxretry = 5\
+findtime = 120\
+bantime = 60\
+\
+[sshd-ddos]\
+port = 50787\
+enabled = true\
+\
+[recidive]\
+enabled = true\
+\
+[apache]\
+enabled = true\
+port = http, https\
+filter = apache-auth\
+logpath = /var/log/apache2*/*error.log\
+maxretry = 6\
+findtime = 600\
+\
+[apache-noscript]\
+enabled = true\
+\
+[apache-overflows]\
+\
+enabled  = true\
+port     = http,https\
+filter   = apache-overflows\
+logpath  = /var/log/apache2*/*error.log\
+maxretry = 2\
+\
+[apache-badbots]\
+\
+enabled  = true\
+port     = http,https\
+filter   = apache-badbots\
+logpath  = /var/log/apache2*/*error.log\
+maxretry = 2\
+\
+[http-get-dos]\
+enabled = true\
+port = http,https\
+filter = http-get-dos\
+logpath = /var/log/apache2/server.log\
+maxretry = 100\
+findtime = 300\
+bantime = 300\
+action = iptables[name=HTTP, port=http, protocol=tcp]\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+On cr\'e9\'e9 \'e9galement le fichier suivant :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo vim /etc/fail2ban/filter.d/http-get-dos.conf
+\f2\fs32 \cb4 \'a0avec pour contenu :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 [Definition]\
+\
+# Option: failregex\
+# Note: This regex will match any GET entry in your logs, so basically all valid and not valid entries are a match.\
+# You should set up in the jail.conf file, the maxretry and findtime carefully in order to avoid false positives.\
+\
+failregex = ^<HOST> -.*"(GET|POST).*\
+\
+# Option: ignoreregex\
+# Notes.: regex to ignore. If this regex matches, the line is ignored.\
+# Values: TEXT\
+#\
+ignoreregex =\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 On relance ensuite le service fail2ban :\'a0
+\f1\fs27\fsmilli13600 \cb10 sudo systemctl restart fail2ban.service
+\f2\fs32 \cb4 \
+Si pas d'erreur, tout va bien. Un\'a0
+\f1\fs27\fsmilli13600 \cb10 iptables -S
+\f2\fs32 \cb4 \'a0liste d\'e9sormais de nouvelles r\'e8gles en plus des pr\'e9c\'e9dentes.\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs36 \cf11 \cb13 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 P\cf8 ARTIE 5 : scan des ports\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl480\partightenfactor0
+\ls2\ilvl0
+\b0\fs32 \cf8 \kerning1\expnd0\expndtw0 {\listtext	1.	}\expnd0\expndtw0\kerning0
+Config portsentry\
+\pard\pardeftab720\sl480\sa320\partightenfactor0
+\cf8 \'a0
+\f1\fs27\fsmilli13600 sudo vim /etc/default/portsentry
+\f2\fs32 \'a0file pour passer en mode avanc\'e9 :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf8 TCP_MODE="atcp"\
+UDP_MODE="audp"\
+\pard\pardeftab720\sl480\sa320\partightenfactor0
+
+\f2\fs32 \cf8 Puis on \'e9dite\'a0
+\f1\fs27\fsmilli13600 /etc/portsentry/portsentry.conf
+\f2\fs32 \
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf8 BLOCK_UDP="1"\
+BLOCK_TCP="1"\
+\pard\pardeftab720\sl480\sa320\partightenfactor0
+
+\f2\fs32 \cf8 J\'92ai comment\'e9 le KILL_ROUTE actif and d\'e9comment\'e9 celui-ci:\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf8 KILL_ROUTE="/sbin/iptables -I INPUT -s $TARGET$ -j DROP"\
+\pard\pardeftab720\sl480\sa320\partightenfactor0
+
+\f2\fs32 \cf8 On commente la ligne suivante:\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf8 KILL_HOSTS_DENY="ALL: $TARGET$ : DENY\
+\pard\tx720\pardeftab720\sl480\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \kerning1\expnd0\expndtw0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl480\partightenfactor0
+\ls3\ilvl0\cf2 {\listtext	2.	}\expnd0\expndtw0\kerning0
+On peut maintenant red\'e9marrer le service et rendre les changements effectifs\cb1 \
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 sudo service portsentry restart\
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 https://fr-wiki.ikoula.com/fr/Se_prot%C3%A9ger_contre_le_scan_de_ports_avec_portsentry\
+Aussi, la commande\'a0
+\f1\fs27\fsmilli13600 \cb10 sudo netstat -paunt
+\f2\fs32 \cb4 \'a0devrait lister les ports ouverts de votre machine. Assurez-vous que seuls ceux que vous utilisez dans le projet soient ouverts.\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://fr-wiki.ikoula.com/fr/Se_prot%C3%A9ger_contre_le_scan_de_ports_avec_portsentry"}}{\fldrslt \cf11 https://fr-wiki.ikoula.com/fr/Se_prot%C3%A9ger_contre_le_scan_de_ports_avec_portsentry}}\
+\pard\pardeftab720\sl300\partightenfactor0
+
+\b\fs30 \cf11 \cb1 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\fs36 \cf2 \cb4 PARTIE 6 : Test d\'92attaque DOS avec SlowLoris et scan de port avec nmap
+\fs30 \
+\pard\pardeftab720\sl200\partightenfactor0
+
+\b0\fs32 \cf11 \cb1 \
+\pard\pardeftab720\sl260\sa320\partightenfactor0
+\cf2 \cb4 Je me suis d\'e9brouill\'e9 pour t\'e9l\'e9charger SlowDoris sur une autre VM. J\'92ai aussi install\'e9 Perl (il va vous le demander).
+\b\fs21 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 J\'92ai test\'e9 les commandes suivantes\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 $\cf9 >\cf2  perl slowloris.pl -dns [STATIC IP VM] -port [SSH PORT VM]\
+$\cf9 >\cf2  perl slowloris.pl -dns [STATIC IP VM] -port 80\
+$\cf9 >\cf2  perl slowloris.pl -dns [STATIC IP VM] -port 443\
+$\cf9 >\cf2  perl slowloris.pl -dns [STATIC IP VM] -port 25\
+\pard\pardeftab720\sl200\partightenfactor0
+
+\f2\b\fs21 \cf11 \cb1 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 \cb4 SlowDoris ne doit pas pouvoir envoyer de packets ailleurs que sur les ports 80, 443, et le port de votre SSH.\
+Ensuite, nmap :
+\b\fs21 \
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\b0\fs27\fsmilli13600 \cf2 \cb3 $\cf9 >\cf2  sudo aptget install nmap\
+\pard\pardeftab720\sl200\partightenfactor0
+
+\f2\b\fs21 \cf11 \cb1 \
+\pard\pardeftab720\sl260\sa320\partightenfactor0
+
+\b0\fs32 \cf2 \cb4 Je l\'92ai test\'e9 de la mani\'e8re suivante (depuis une autre VM, attention, car on se fait bannir) 
+\b\fs21 :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\b0\fs27\fsmilli13600 \cf2 \cb3 $\cf9 >\cf2  nmap -Pn [IP_VM_TO_TEST]\
+$\cf9 >\cf2  nmap [IP_VM_TO_TEST]\
+\pard\pardeftab720\sl200\partightenfactor0
+
+\f2\b\fs21 \cf11 \cb1 \
+\pard\pardeftab720\sl260\sa320\partightenfactor0
+
+\b0\fs32 \cf2 \cb4 Nmap ne doit pas \'eatre capable de scanner vos ports et l\'92IP essayant de scanner doit \'eatre bannie.
+\b\fs21 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 \cb4 PARTIE 7 : services inutiles\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\b0\fs27\fsmilli13600 \cf2 \cb3 systemctl list-unit-files\
+\
+sudo systemctl disable XXX.service\
+\
+\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+Ca d\'e9pend de votre syst\'e8me, mais pour moi les seuls services que j\'92ai conserv\'e9 sont les suivants :
+\b\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b0\fs32 \cf8 apache2.service                                                        enabled \
+autovt@.service                                                        enabled\
+cron.service                                                           enabled\
+fail2ban.service                                                       enabled\
+getty@.service                                                         enabled\
+netfilter-persistent.service                                           enabled\
+networking.service                                                     enabled\
+ssh.service                                                            enabled\
+sshd.service                                                           enabled
+\b\fs36 \cf11 \ul \ulc11 \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b0\fs32 \cf8 \ulnone J\'92ai d\'e9sactiv\'e9 (sudo systemctl disable) les suivants (sur plusieurs VM diff\'e9rentes) :\
+\
+console-setup.service                                             enabled\
+keyboard-setup.service                                             enabled\
+rsync.service                                                          enabled\
+arsyslog.service                                                        enabled\
+systemd-timesyncd.service                                              enabled (web ?)\
+ufw.service                                                            enabled\
+remote-fs.target                                                       enabled (web ?)\
+apt-daily-upgrade.timer                                                enabled\
+apt-daily.timer                                                        enabled\
+cups.path                                                              enabled\
+avahi-daemon.service                                                   enabled\
+cups-browsed.service                                                   enabled\
+cups.service                                                           enabled\
+dbus-org.freedesktop.Avahi.service                                     enabled\
+avahi-daemon.socket                                                    enabled\
+cups.socket                                                            enabled\
+
+\b\fs36 \cf11 \
+\
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 \cb4 PARTIE 8 : script d'update\
+\pard\tx720\pardeftab720\sl264\slmult1\partightenfactor0
+
+\b0\fs32 \cf2 \kerning1\expnd0\expndtw0 J\'92ai modifi\'e9 avec visudo les permissions de l\'92utilisateur scoron de mani\'e8re \'e0 ce qu\'92il n\'92ait plus besoin de mot de passe. Afin d\'92\'eatre s\'fbr de passer les nouvelles permissions en priorit\'e9 (\'e9viter les override), j\'92ai utilis\'e9 la commande:
+\f1\fs27\fsmilli13600 \cf14 \cb3 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+
+\fs26 \cf15 \cb16 sudo visudo -f /etc/sudoers.d/myOverrides \
+\pard\tx720\pardeftab720\sl264\slmult1\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \kerning1\expnd0\expndtw0 Et j\'92ai rajout\'e9 :
+\f1\fs27\fsmilli13600 \cf14 \cb3 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+\cf8 scoron     ALL=(ALL:ALL) NOPASSWD:ALL\
+
+\f2\fs32 \cf2 \cb4 \
+\pard\tx720\pardeftab720\sl264\slmult1\partightenfactor0
+\cf2 J\'92ai cr\'e9\'e9\'a0
+\f1\fs27\fsmilli13600 \cb10 update.sh
+\f2\fs32 \cb4 \'a0et j\'92y ai mis\cb1 \
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf14 \cb3 echo\cf2  \cf17 "sudo apt-get update -y >> /var/log/update_script.log"\cf2  \cf9 >>\cf2  \cf9 ~\cf2 /update.sh\
+\cf14 echo\cf2  \cf17 "sudo apt-get upgrade -y >> /var/log/update_script.log"\cf2  \cf9 >>\cf2  \cf9 ~\cf2 /update.sh\
+\pard\tx720\pardeftab720\sl264\slmult1\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \kerning1\expnd0\expndtw0 \
+\pard\tx720\pardeftab720\sl264\slmult1\partightenfactor0
+\cf2 \expnd0\expndtw0\kerning0
+Ajoutons la tache \'e0 Cron\'85\cb1 \
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 sudo crontab -e\
+\pard\tx720\pardeftab720\sl264\slmult1\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 On y \'e9cris  :\cb1 \
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 \kerning1\expnd0\expndtw0 S\expnd0\expndtw0\kerning0
+HELL=/bin/bash\
+PATH=/sbin:/bin:/usr/sbin:/usr/bin\
+@reboot sud\cf8 o home/scoron/u\cf2 pdate.sh\
+0 4 \cf9 *\cf2  \cf9 *\cf2  1 sudo \cf8 home/scoron/u\cf2 pdate.sh\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+On rend le fichier ex\'e9cutable :\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 chmod +x update.sh\
+chmod 755 update.sh\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f2\b\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 \cb4 PARTIE 9 : Script de surveillance\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 J\'92ai  cr\'e9\'e9 le script :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 vim /home/USER/CronWatcher.sh\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 Avec :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 #!/bin/bash\
+TMP="/home/scoron/cron/crontmp"\
+NEW="/home/scoron/cron/new"\
+cat /var/spool/cron/crontabs/scoron > $NEW\
+DIFF=$(diff $TMP $NEW)\
+if [ ! -f $TMP ]\
+then\
+	cat $NEW > $TMP\
+	exit 0\
+fi\
+if [ "$DIFF" != "" ]\
+then\
+	echo "/var/spool/cron/crontabs/scoron has been edited" | mail -s "Crontabs/scoron edited" root\
+	cp $NEW $TMP\
+fi\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 On le rend ex\'e9cutable :\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 chmod +x CronWatcher.sh\
+chmod 755 CronWatcher.sh\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 On l\'92ajoute ensuite au crontab :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo crontab -e\
+\pard\pardeftab720\sl380\partightenfactor0
+\cf2 \cb3 0  0	* * *	sudo	/home/scoron/CronWatcher.sh\cb10 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+J\'92ai cr\'e9\'e9 le dossier cron avec les fichiers tmp et new \'e0 l\'92int\'e9rieur, du coup, et mis les permissions n\'e9cessaires (cron, cron/tmp cron/new et CronWatcher.sh en 755)\
+Le mail sera envoy\'e9 \'e0 l'adresse root :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 sudo cat /var/mail/scoron\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f2\b\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 \cb4 (Debian redirige les mails root vers un utilisateur)\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs36 \cf11 \cb1 \
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+\cf2 \cb4 PARTIE 10 : Partie web\
+\pard\pardeftab720\sl440\sa320\partightenfactor0
+
+\b0\fs32 \cf2 https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-14-04
+\b\fs36 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\b0\fs32 \cf2 On g\'e9n\'e8re une nouvelle cl\'e9 SSL :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/rs1scoron.com.key -out /etc/ssl/certs/rs1scoron.com.crt\
+(http://derpturkey.com/client-certificate-connections-with-node/)
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Puis on rentre les infos demand\'e9es.\
+Puis :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo vim /etc/apache2/sites-available/default-ssl.conf
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 J\'92ai modifi\'e9 uniquement les lignes SSL en renseignant le bon chemin des cl\'e9s (les deux lignes sous SSLEngine on) :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 <IfModule mod_ssl.c>\
+ <VirtualHost _default_:443>       \
+                ServerAdmin webmaster@localhost\
+                DocumentRoot /var/www/html\
+\
+                ErrorLog $\{APACHE_LOG_DIR\}/error.log\
+                CustomLog $\{APACHE_LOG_DIR\}/access.log combined\
+\
+                #Include conf-available/serve-cgi-bin.conf\
+\
+                #   SSL Engine Switch:\
+                #   Enable/Disable SSL for this virtual host.\
+                SSLEngine on\
+                SSLCertificateFile      /etc/ssl/certs/rs1scoron.com.crt\
+                SSLCertificateKeyFile /etc/ssl/private/rs1scoron.com.key\
+                #\
+                #SSLCertificateFile      /etc/ssl/certs/ssl-cert-snakeoil.pem\
+                #SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key\
+\
+......................\
+.......................\
+\
+ </VirtualHost>\
+</IfModule>\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 Puis j\'92ai test\'e9 la commandes suivantes :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 sudo apachectl configtest\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Si pas de message d'erreur, on peut activer le module ssl et choisir la configuration par d\'e9faut :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 sudo a2enmod ssl\
+sudo a2ensite default-ssl\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Si pas de message d'erreur, on peut red\'e9marrer le service :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo systemctl restart apache2.service
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 On fait ensuite une copie de la configuration par d\'e9faut :\
+\pard\pardeftab720\sl320\sa320\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb10 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/001-site.conf
+\f2\fs32 \cb4 \
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+\cf2 Et on modifie le fichier\'a0
+\f1\fs27\fsmilli13600 \cb10 sudo vim /etc/apache2/sites-available/001-site.conf
+\f2\fs32 \cb4 \
+On peut changer le ServerName comme on le souhaite et le DocumentRoot par le chemin vers votre site web (vaut mieux pas le toucher d\'92ailleurs et mettre le site web a l\'92emplacement initial, j\'92ai eu des probl\'e8mes en voulant faire autrement).\
+On active la nouvelle configuration :\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 # D\'e9sactive l'ancienne configuration\
+sudo a2dissite 000-default.conf\
+# Active la nouvelle\
+sudo a2ensite 001-site.conf\
+# La commande parle d'elle-m\'eame...\
+sudo systemctl reload apache2\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f2\fs32 \cf2 \cb4 Le site sera normalement accessible sur votre IP. C'est un certificat auto sign\'e9 donc le navigateur vous mettra un avertissement avant d'y acc\'e9der.\
+(Le fait qu\'92elle soit accessible sur l\'92adresse IP constitue la partie d\'e9ploiement. On a fait d\'92une pierre deux coup, il suffisait de mettre le website dans /var/www/html pour r\'e9ussir cette partie).\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 \
+}
